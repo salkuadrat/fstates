@@ -31,14 +31,14 @@ class UsersCubit extends Cubit<UsersState> {
 
       if (items == null) {
         if (state.isFirstPage) {
-          state.failed();
+          emit(state.failed());
         }
       } else {
         if (items.isEmpty) {
           if (state.isFirstPage) {
-            state.empty();
+            emit(state.empty());
           } else {
-            state.reachedMax();
+            emit(state.reachedMax());
           }
         } else {
           if (state.isFirstPage) {
