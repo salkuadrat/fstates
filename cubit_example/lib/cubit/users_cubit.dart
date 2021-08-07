@@ -40,11 +40,12 @@ class UsersCubit extends Cubit<UsersState> {
           } else {
             state.reachedMax();
           }
-        }
-        if (state.isFirstPage) {
-          emit(state.replace(items: items));
         } else {
-          emit(state.append(items: items));
+          if (state.isFirstPage) {
+            emit(state.replace(items: items));
+          } else {
+            emit(state.append(items: items));
+          }
         }
       }
 

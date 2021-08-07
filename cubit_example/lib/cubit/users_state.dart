@@ -44,7 +44,7 @@ class UsersState extends Equatable {
 
   UsersState append({required List<User> items}) => copyWith(
         items: [...this.items, ...items],
-        page: items.isEmpty ? page : nextPage,
+        page: nextPage,
         isEmpty: false,
         isFailed: false,
         hasReachedMax: false,
