@@ -39,7 +39,8 @@ class Home extends StatelessWidget {
               itemBuilder: (_, index) {
                 bool isItem = index < controller.count;
                 bool isLastIndex = index == controller.count;
-                bool isLoadingMore = isLastIndex && !controller.hasReachedMax;
+                bool isLoadingMore = isLastIndex && controller.isLoadingMore;
+                
                 // User Item
                 if (isItem) return UserItem(controller.item(index));
                 // Show loading more at the bottom

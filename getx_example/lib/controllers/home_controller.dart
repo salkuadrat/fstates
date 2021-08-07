@@ -21,6 +21,7 @@ class HomeController extends GetxController {
   bool get isFailed => _isFailed.value;
   bool get isLoading => _isLoading.value;
   bool get isLoadingFirst => isLoading && isFirstPage;
+  bool get isLoadingMore => isLoading && page > 1;
   bool get hasReachedMax => _hasReachedMax.value;
   List<User> get users => _users.toList();
 
