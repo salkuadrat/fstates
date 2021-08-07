@@ -31,14 +31,14 @@ class UsersCubit extends Cubit<UsersState> {
 
       if (items == null) {
         if (state.isFirstPage) {
-          emit(state.failed());
+          failed();
         }
       } else {
         if (items.isEmpty) {
           if (state.isFirstPage) {
-            emit(state.empty());
+            empty();
           } else {
-            emit(state.reachedMax());
+            reachedMax();
           }
         } else {
           if (state.isFirstPage) {
@@ -51,6 +51,18 @@ class UsersCubit extends Cubit<UsersState> {
 
       stopLoading();
     }
+  }
+
+  void failed() {
+    emit(state.failed());
+  }
+
+  void empty() {
+    emit(state.empty());
+  }
+
+  void reachedMax() {
+    emit(state.reachedMax());
   }
 
   void startLoading() {
