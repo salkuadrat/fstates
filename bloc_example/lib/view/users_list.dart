@@ -46,10 +46,14 @@ class _UsersListState extends State<UsersList> {
                   itemCount: state.count + 1,
                   itemBuilder: (_, index) {
                     bool isItem = index < state.count;
+                    bool isLastIndex = index == state.count;
+                    bool isLoadingMore = isLastIndex && !state.hasReachedMax;
                     // User Item
                     if (isItem) return UserItem(state.item(index));
                     // Show loading more at the bottom
-                    return LoadingMore();
+                    if(isLoadingMore) return LoadingMore();
+                    // Default empty content
+                    return Container();
                   },
                 ),
               );
