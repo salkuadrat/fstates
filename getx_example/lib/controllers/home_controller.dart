@@ -6,7 +6,7 @@ import '../models/user.dart';
 
 class HomeController extends GetxController {
   final _page = 1.obs;
-  final _users = <User>[].obs;
+  final _items = <User>[].obs;
   final _isEmpty = false.obs;
   final _isFailed = false.obs;
   final _isLoading = false.obs;
@@ -15,7 +15,9 @@ class HomeController extends GetxController {
   HomeController();
 
   int get page => _page.value;
-  int get count => _users.length;
+  int get count => _items.length;
+  List<User> get items => _items.toList();
+
   bool get isFirstPage => page == 1;
   bool get isEmpty => _isEmpty.value;
   bool get isFailed => _isFailed.value;
@@ -23,9 +25,8 @@ class HomeController extends GetxController {
   bool get isLoadingFirst => isLoading && isFirstPage;
   bool get isLoadingMore => isLoading && page > 1;
   bool get hasReachedMax => _hasReachedMax.value;
-  List<User> get users => _users.toList();
-
-  User item(int index) => _users[index];
+  
+  User item(int index) => _items[index];
 
   late ItemScrollController itemScrollController;
   late ItemPositionsListener itemPositionsListener;
@@ -45,7 +46,7 @@ class HomeController extends GetxController {
 
   Future<void> refresh() async {
     _page.value = 1;
-    _users.clear();
+    _items.clear();
     await _loadPerPage();
   }
 
@@ -67,7 +68,7 @@ class HomeController extends GetxController {
             _hasReachedMax.value = true;
           }
         } else {
-          _users.addAll(items);
+          _items.addAll(items);
           _page.value = _page.value + 1;
 
           _isEmpty.value = false;
