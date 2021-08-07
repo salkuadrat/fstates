@@ -26,7 +26,15 @@ class UsersState extends Equatable {
 
   User item(int index) => items[index];
 
-  UsersState reset() => copyWith(page: 1, isLoading: false, items: []);
+  UsersState reset() => copyWith(
+        page: 1,
+        items: [],
+        isLoading: false,
+        isEmpty: false,
+        isFailed: false,
+        hasReachedMax: false,
+      );
+
   UsersState resetPage() => copyWith(page: 1);
   UsersState startLoading() => copyWith(isLoading: true);
   UsersState stopLoading() => copyWith(isLoading: false);
