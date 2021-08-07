@@ -13,9 +13,6 @@ class UsersState extends ChangeNotifier {
   bool _isLoading = false;
   bool _hasReachedMax = false;
 
-  ItemScrollController _itemScrollController = ItemScrollController();
-  ItemPositionsListener _itemPositionsListener = ItemPositionsListener.create();
-
   int get page => _page;
   int get count => _items.length;
   List<User> get items => _items;
@@ -29,10 +26,10 @@ class UsersState extends ChangeNotifier {
   bool get isLoadingFirst => _isLoading && isFirstPage;
   bool get isLoadingMore => _isLoading && _page > 1;
 
-  ItemScrollController get itemScrollController => _itemScrollController;
-  ItemPositionsListener get itemPositionsListener => _itemPositionsListener;
-
   User item(int index) => _items[index];
+
+  ItemScrollController itemScrollController = ItemScrollController();
+  ItemPositionsListener itemPositionsListener = ItemPositionsListener.create();
 
   Future<void> init() async {
     await refresh();
@@ -90,15 +87,15 @@ class UsersState extends ChangeNotifier {
   }
 
   void scrollToTop() {
-    _itemScrollController.scrollTo(
+    itemScrollController.scrollTo(
       index: 0,
       duration: Duration(milliseconds: 300),
     );
   }
 
   void trigger() {
-    _itemPositionsListener.itemPositions.addListener(() {
-      final pos = _itemPositionsListener.itemPositions.value;
+    itemPositionsListener.itemPositions.addListener(() {
+      final pos = itemPositionsListener.itemPositions.value;
       final lastIndex = count - 1;
 
       final isAtBottom = pos.last.index == lastIndex;
