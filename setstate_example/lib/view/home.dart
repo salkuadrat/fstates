@@ -43,7 +43,10 @@ class _HomeState extends State<Home> {
   void dispose() {
     _page = 1;
     _items = [];
+    _isEmpty = false;
+    _isFailed = false;
     _isLoading = false;
+    _hasReachedMax = false;
     super.dispose();
   }
 
