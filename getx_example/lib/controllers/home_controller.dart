@@ -43,6 +43,12 @@ class HomeController extends GetxController {
     trigger();
   }
 
+  Future<void> refresh() async {
+    _page.value = 1;
+    _users.clear();
+    await _loadPerPage();
+  }
+
   Future<void> _loadPerPage() async {
     if (!isLoading) {
       startLoading();
@@ -73,12 +79,6 @@ class HomeController extends GetxController {
 
       stopLoading();
     }
-  }
-
-  Future<void> refresh() async {
-    _page.value = 1;
-    _users.clear();
-    await _loadPerPage();
   }
 
   void startLoading() {
