@@ -27,6 +27,9 @@ class _UsersListState extends State<UsersList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Bloc Example'),
+      ),
       body: BlocBuilder<UserBloc, UserState>(
         builder: (context, state) {
           UserBloc users = context.read<UserBloc>();

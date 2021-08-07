@@ -35,36 +35,37 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: BlocBuilder<UsersCubit, UsersState>(
-          builder: (context, state) {
-            UsersCubit users = context.read<UsersCubit>();
+      appBar: AppBar(
+        title: Text('Cubit Example'),
+      ),
+      body: BlocBuilder<UsersCubit, UsersState>(
+        builder: (context, state) {
+          UsersCubit users = context.read<UsersCubit>();
 
-            if (state.isLoadingFirst) {
-              return Center(child: CircularProgressIndicator());
-            }
-            
-            return RefreshIndicator(
-              onRefresh: users.refresh,
-              child: ScrollablePositionedList.builder(
-                itemScrollController: users.itemScrollController,
-                itemPositionsListener: users.itemPositionsListener,
-                itemCount: state.count + 1,
-                itemBuilder: (_, index) {
-                  bool isItem = index < state.count;
-                  bool isLastIndex = index == state.count;
-                  bool isLoadingMore = isLastIndex && state.isLoadingMore;
-                  // User Item
-                  if (isItem) return UserItem(state.item(index));
-                  // Show loading more at the bottom
-                  if (isLoadingMore) return LoadingMore();
-                  // Default empty content
-                  return Container();
-                },
-              ),
-            );
-          },
-        ),
+          if (state.isLoadingFirst) {
+            return Center(child: CircularProgressIndicator());
+          }
+          
+          return RefreshIndicator(
+            onRefresh: users.refresh,
+            child: ScrollablePositionedList.builder(
+              itemScrollController: users.itemScrollController,
+              itemPositionsListener: users.itemPositionsListener,
+              itemCount: state.count + 1,
+              itemBuilder: (_, index) {
+                bool isItem = index < state.count;
+                bool isLastIndex = index == state.count;
+                bool isLoadingMore = isLastIndex && state.isLoadingMore;
+                // User Item
+                if (isItem) return UserItem(state.item(index));
+                // Show loading more at the bottom
+                if (isLoadingMore) return LoadingMore();
+                // Default empty content
+                return Container();
+              },
+            ),
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: users.scrollToTop,

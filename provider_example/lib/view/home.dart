@@ -34,44 +34,45 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Consumer<UsersState>(
-          builder: (context, users, __) {
-            UsersState users = context.read<UsersState>();
+      appBar: AppBar(
+        title: Text('Provider Example'),
+      ),
+      body: Consumer<UsersState>(
+        builder: (context, users, __) {
+          UsersState users = context.read<UsersState>();
 
-            if (users.isFailed) {
-              return Center(child: Text('Fetching data failed.'));
-            }
+          if (users.isFailed) {
+            return Center(child: Text('Fetching data failed.'));
+          }
 
-            if (users.isEmpty) {
-              return Center(child: Text('No data.'));
-            }
-            
-            if (users.isLoadingFirst) {
-              return Center(child: CircularProgressIndicator());
-            }
+          if (users.isEmpty) {
+            return Center(child: Text('No data.'));
+          }
+          
+          if (users.isLoadingFirst) {
+            return Center(child: CircularProgressIndicator());
+          }
 
-            return RefreshIndicator(
-              onRefresh: users.refresh,
-              child: ScrollablePositionedList.builder(
-                itemScrollController: users.itemScrollController,
-                itemPositionsListener: users.itemPositionsListener,
-                itemCount: users.count + 1,
-                itemBuilder: (_, index) {
-                  bool isItem = index < users.count;
-                  bool isLastIndex = index == users.count;
-                  bool isLoadingMore = isLastIndex && users.isLoadingMore;
-                  // User Item
-                  if (isItem) return UserItem(users.item(index));
-                  // Show loading more at the bottom
-                  if (isLoadingMore) return LoadingMore();
-                  // Default empty content
-                  return Container();
-                },
-              ),
-            );
-          },
-        ),
+          return RefreshIndicator(
+            onRefresh: users.refresh,
+            child: ScrollablePositionedList.builder(
+              itemScrollController: users.itemScrollController,
+              itemPositionsListener: users.itemPositionsListener,
+              itemCount: users.count + 1,
+              itemBuilder: (_, index) {
+                bool isItem = index < users.count;
+                bool isLastIndex = index == users.count;
+                bool isLoadingMore = isLastIndex && users.isLoadingMore;
+                // User Item
+                if (isItem) return UserItem(users.item(index));
+                // Show loading more at the bottom
+                if (isLoadingMore) return LoadingMore();
+                // Default empty content
+                return Container();
+              },
+            ),
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: users.scrollToTop,

@@ -13,42 +13,43 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Obx(
-          () {
-            if (controller.isFailed) {
-              return Center(child: Text('Fetching data failed.'));
-            }
+      appBar: AppBar(
+        title: Text('GetX Example'),
+      ),
+      body: Obx(
+        () {
+          if (controller.isFailed) {
+            return Center(child: Text('Fetching data failed.'));
+          }
 
-            if (controller.isEmpty) {
-              return Center(child: Text('No data.'));
-            }
+          if (controller.isEmpty) {
+            return Center(child: Text('No data.'));
+          }
 
-            if (controller.isLoadingFirst) {
-              return Center(child: CircularProgressIndicator());
-            }
+          if (controller.isLoadingFirst) {
+            return Center(child: CircularProgressIndicator());
+          }
 
-            return RefreshIndicator(
-              onRefresh: controller.refresh,
-              child: ScrollablePositionedList.builder(
-                itemScrollController: controller.itemScrollController,
-                itemPositionsListener: controller.itemPositionsListener,
-                itemCount: controller.count + 1,
-                itemBuilder: (_, index) {
-                  bool isItem = index < controller.count;
-                  bool isLastIndex = index == controller.count;
-                  bool isLoadingMore = isLastIndex && !controller.hasReachedMax;
-                  // User Item
-                  if (isItem) return UserItem(controller.item(index));
-                  // Show loading more at the bottom
-                  if (isLoadingMore) return LoadingMore();
-                  // Default empty content
-                  return Container();
-                },
-              ),
-            );
-          },
-        ),
+          return RefreshIndicator(
+            onRefresh: controller.refresh,
+            child: ScrollablePositionedList.builder(
+              itemScrollController: controller.itemScrollController,
+              itemPositionsListener: controller.itemPositionsListener,
+              itemCount: controller.count + 1,
+              itemBuilder: (_, index) {
+                bool isItem = index < controller.count;
+                bool isLastIndex = index == controller.count;
+                bool isLoadingMore = isLastIndex && !controller.hasReachedMax;
+                // User Item
+                if (isItem) return UserItem(controller.item(index));
+                // Show loading more at the bottom
+                if (isLoadingMore) return LoadingMore();
+                // Default empty content
+                return Container();
+              },
+            ),
+          );
+        },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: controller.scrollToTop,
