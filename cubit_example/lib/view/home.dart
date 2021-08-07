@@ -42,6 +42,14 @@ class _HomeState extends State<Home> {
         builder: (context, state) {
           UsersCubit users = context.read<UsersCubit>();
 
+          if (state.isFailed) {
+            return Center(child: Text('Fetching data failed.'));
+          }
+
+          if (state.isEmpty) {
+            return Center(child: Text('No data.'));
+          }
+
           if (state.isLoadingFirst) {
             return Center(child: CircularProgressIndicator());
           }
