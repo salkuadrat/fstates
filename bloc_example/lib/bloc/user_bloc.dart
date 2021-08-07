@@ -73,48 +73,34 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       return state;
     }
 
-    final users = await Api.users(state.page);
+    final items = await Api.users(state.page);
 
-    if (users == null) {
+    if (items == null) {
       if (state.status == UserStatus.initial) {
-        return state.copyWith(status: UserStatus.failure);
+        return state.failed();
       } else {
         return state;
       }
     }
 
-    if (users.isEmpty) {
+    if (items.isEmpty) {
       if (state.status == UserStatus.initial) {
-        return state.copyWith(
-          status: UserStatus.empty,
-          hasReachedMax: true,
-        );
+        return state.empty();
       } else {
-        return state.copyWith(hasReachedMax: true);
+        return state.reachedMax();
       }
     }
 
-    return state.copyWith(
-      status: UserStatus.success,
-      users: [...state.users, ...users],
-      page: state.page + 1,
-      hasReachedMax: false,
-    );
+    return state.append(items);
   }
 
   Future<UserState> _mapUserRefreshedToState(UserState state) async {
-    int page = 1;
-    final users = await Api.users(page);
+    final items = await Api.users(1);
 
-    if (users == null || users.isEmpty) {
+    if (items == null || items.isEmpty) {
       return state;
     }
 
-    return state.copyWith(
-      status: UserStatus.success,
-      users: users,
-      page: page + 1,
-      hasReachedMax: false,
-    );
+    return state.replace(items);
   }
 }

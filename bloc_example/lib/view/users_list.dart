@@ -33,7 +33,7 @@ class _UsersListState extends State<UsersList> {
       body: BlocBuilder<UserBloc, UserState>(
         builder: (_, state) {
           switch (state.status) {
-            case UserStatus.failure:
+            case UserStatus.failed:
               return Center(child: Text('Fetching data failed.'));
             case UserStatus.empty:
               return Center(child: Text('No data.'));
