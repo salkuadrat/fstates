@@ -39,8 +39,6 @@ class _HomeState extends State<Home> {
       ),
       body: Consumer<UsersState>(
         builder: (context, users, __) {
-          UsersState users = context.read<UsersState>();
-
           if (users.isFailed) {
             return Center(child: Text('Fetching data failed.'));
           }
