@@ -106,20 +106,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     int page = 1;
     final users = await Api.users(page);
 
-    if (users == null) {
-      if (state.status == UserStatus.initial) {
-        return state.copyWith(status: UserStatus.failure);
-      } else {
-        return state;
-      }
-    }
-
-    if (users.isEmpty) {
-      return state.copyWith(
-        status: UserStatus.empty,
-        hasReachedMax: true,
-        page: page,
-      );
+    if (users == null || users.isEmpty) {
+      return state;
     }
 
     return state.copyWith(
