@@ -62,7 +62,7 @@ class HomeController extends GetxController {
         }
       } else {
         if (items.isEmpty) {
-          if (page == 1) {
+          if (isFirstPage) {
             _isEmpty.value = true;
           } else {
             _hasReachedMax.value = true;
