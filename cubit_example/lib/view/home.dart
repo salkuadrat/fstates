@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
         title: Text('Cubit Example'),
       ),
       body: BlocBuilder<UsersCubit, UsersState>(
-        builder: (context, state) {
+        builder: (_, state) {
           if (state.isFailed) {
             return Center(child: Text('Fetching data failed.'));
           }
