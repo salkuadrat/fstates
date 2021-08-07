@@ -25,52 +25,32 @@ class UsersCubit extends Cubit<UsersState> {
 
   Future<void> loadPerPage() async {
     if (!state.isLoading) {
-      startLoading();
+      emit(state.startLoading());
 
       final items = await Api.users(state.page);
 
       if (items == null) {
         if (state.isFirstPage) {
-          failed();
+          emit(state.failed());
         }
       } else {
         if (items.isEmpty) {
           if (state.isFirstPage) {
-            empty();
+            emit(state.empty());
           } else {
-            reachedMax();
+            emit(state.reachedMax());
           }
         } else {
           if (state.isFirstPage) {
-            emit(state.replace(items: items));
+            emit(state.replace(items));
           } else {
-            emit(state.append(items: items));
+            emit(state.append(items));
           }
         }
       }
 
-      stopLoading();
+      emit(state.stopLoading());
     }
-  }
-
-  void failed() {
-    emit(state.failed());
-  }
-
-  void empty() {
-    emit(state.empty());
-  }
-
-  void reachedMax() {
-    emit(state.reachedMax());
-  }
-
-  void startLoading() {
-    emit(state.startLoading());
-  }
-
-  void stopLoading() {
-    emit(state.stopLoading());
   }
 
   void scrollToTop() {

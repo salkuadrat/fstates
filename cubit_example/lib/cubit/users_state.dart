@@ -42,7 +42,7 @@ class UsersState extends Equatable {
   UsersState failed() => copyWith(isFailed: true);
   UsersState reachedMax() => copyWith(hasReachedMax: true, isFailed: false);
 
-  UsersState replace({required List<User> items}) => copyWith(
+  UsersState replace(List<User> items) => copyWith(
         items: items,
         page: 2,
         isEmpty: false,
@@ -50,7 +50,7 @@ class UsersState extends Equatable {
         hasReachedMax: false,
       );
 
-  UsersState append({required List<User> items}) => copyWith(
+  UsersState append(List<User> items) => copyWith(
         items: [...this.items, ...items],
         page: nextPage,
         isEmpty: false,
