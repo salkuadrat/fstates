@@ -38,7 +38,7 @@ class _HomeState extends State<Home> {
         title: Text('Provider Example'),
       ),
       body: Consumer<UsersState>(
-        builder: (context, users, __) {
+        builder: (_, users, __) {
           if (users.isFailed) {
             return Center(child: Text('Fetching data failed.'));
           }
