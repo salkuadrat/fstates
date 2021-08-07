@@ -40,8 +40,6 @@ class _HomeState extends State<Home> {
       ),
       body: BlocBuilder<UsersCubit, UsersState>(
         builder: (context, state) {
-          UsersCubit users = context.read<UsersCubit>();
-
           if (state.isFailed) {
             return Center(child: Text('Fetching data failed.'));
           }
