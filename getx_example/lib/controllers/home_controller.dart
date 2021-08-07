@@ -52,7 +52,7 @@ class HomeController extends GetxController {
 
   Future<void> _loadPerPage() async {
     if (!isLoading) {
-      startLoading();
+      _isLoading.value = true;
 
       final items = await Api.users(page);
 
@@ -78,16 +78,8 @@ class HomeController extends GetxController {
         _isFailed.value = false;
       }
 
-      stopLoading();
+      _isLoading.value = false;
     }
-  }
-
-  void startLoading() {
-    _isLoading.value = true;
-  }
-
-  void stopLoading() {
-    _isLoading.value = false;
   }
 
   void scrollToTop() {
