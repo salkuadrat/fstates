@@ -32,8 +32,6 @@ class _UsersListState extends State<UsersList> {
       ),
       body: BlocBuilder<UserBloc, UserState>(
         builder: (context, state) {
-          UserBloc users = context.read<UserBloc>();
-
           switch (state.status) {
             case UserStatus.failure:
               return Center(child: Text('Fetching data failed.'));
