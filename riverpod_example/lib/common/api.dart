@@ -9,9 +9,11 @@ class Api {
   static const String BASE_URL = 'https://gorest.co.in/public/v1/';
   static const String USER = BASE_URL + 'users';
 
-  static Future<List<User>> users(int page) async {
+  static Future<List<User>?> users(int page) async {
     final url = '$USER?page=$page';
     final res = await http.get(Uri.parse(url));
+
+    print(url);
 
     if (res.statusCode == 200) {
       final json = await compute(jsonDecode, res.body);
@@ -25,6 +27,6 @@ class Api {
       }
     }
 
-    return [];
+    return null;
   }
 }
