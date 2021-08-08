@@ -10,7 +10,7 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final users = context.read(usersModelProvider.notifier);
+    final users = context.read(usersProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -18,7 +18,7 @@ class Home extends StatelessWidget {
       ),
       body: Consumer(
         builder: (context, watch, _) {
-          final state = watch(usersModelProvider);
+          final state = watch(usersProvider);
 
           if (state.isFailed) {
             return Center(child: Text('Fetching data failed.'));

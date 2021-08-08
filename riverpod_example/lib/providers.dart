@@ -1,6 +1,6 @@
 import 'package:riverpod/riverpod.dart';
 import 'riverpod/users_model.dart';
 
-final usersModelProvider = StateNotifierProvider<UsersModel, UsersState>(
+final usersProvider = StateNotifierProvider<UsersModel, UsersState>(
   (ref) => UsersModel(),
 );
