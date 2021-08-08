@@ -17,7 +17,7 @@ class Home extends StatelessWidget {
         title: Text('Riverpod Example'),
       ),
       body: Consumer(
-        builder: (context, watch, _) {
+        builder: (_, watch, __) {
           final state = watch(usersProvider);
 
           if (state.isFailed) {
