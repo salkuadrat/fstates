@@ -46,7 +46,7 @@ class _HomeState extends State<Home> {
           if (users.isEmpty) {
             return Center(child: Text('No data.'));
           }
-          
+
           if (users.isLoadingFirst) {
             return Center(child: CircularProgressIndicator());
           }

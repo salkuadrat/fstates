@@ -5,12 +5,12 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../providers.dart';
 import '../widgets/widgets.dart';
 
-class Home extends StatelessWidget {
-  const Home({ Key? key }) : super(key: key);
+class Home extends ConsumerWidget {
+  const Home({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final users = context.read(usersProvider.notifier);
+  Widget build(BuildContext context, WidgetRef ref) {
+    final users = ref.read(usersProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -18,7 +18,7 @@ class Home extends StatelessWidget {
       ),
       body: Consumer(
         builder: (_, watch, __) {
-          final state = watch(usersProvider);
+          final state = ref.watch(usersProvider);
 
           if (state.isFailed) {
             return Center(child: Text('Fetching data failed.'));

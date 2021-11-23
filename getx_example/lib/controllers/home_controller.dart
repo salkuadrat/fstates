@@ -25,7 +25,7 @@ class HomeController extends GetxController {
   bool get isLoadingFirst => isLoading && isFirstPage;
   bool get isLoadingMore => isLoading && page > 1;
   bool get hasReachedMax => _hasReachedMax.value;
-  
+
   User item(int index) => _items[index];
 
   late ItemScrollController itemScrollController;

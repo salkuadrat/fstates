@@ -13,7 +13,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  
   late UsersCubit users;
 
   @override
@@ -51,7 +50,7 @@ class _HomeState extends State<Home> {
           if (state.isLoadingFirst) {
             return Center(child: CircularProgressIndicator());
           }
-          
+
           return RefreshIndicator(
             onRefresh: users.refresh,
             child: ScrollablePositionedList.builder(

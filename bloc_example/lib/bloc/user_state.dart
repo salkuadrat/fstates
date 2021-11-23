@@ -10,7 +10,7 @@ class UserState extends Equatable {
 
   int get count => items.length;
   int get nextPage => page + 1;
-  
+
   User item(int index) => items[index];
 
   UserState({

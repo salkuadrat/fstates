@@ -13,13 +13,12 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-
   final Users users = Users();
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addPostFrameCallback((_) async { 
+    WidgetsBinding.instance?.addPostFrameCallback((_) async {
       await users.init();
     });
   }

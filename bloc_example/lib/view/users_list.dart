@@ -51,7 +51,7 @@ class _UsersListState extends State<UsersList> {
                     // User Item
                     if (isItem) return UserItem(state.item(index));
                     // Show loading more at the bottom
-                    if(isLoadingMore) return LoadingMore();
+                    if (isLoadingMore) return LoadingMore();
                     // Default empty content
                     return Container();
                   },

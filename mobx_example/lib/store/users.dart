@@ -12,19 +12,19 @@ abstract class _Users with Store {
   @observable
   int page = 1;
 
-  @observable 
+  @observable
   bool isEmpty = false;
 
-  @observable 
+  @observable
   bool isFailed = false;
 
-  @observable 
+  @observable
   bool isLoading = false;
 
-  @observable 
+  @observable
   bool hasReachedMax = false;
 
-  @observable 
+  @observable
   ObservableList<User> items = ObservableList.of([]);
 
   @computed
@@ -33,7 +33,7 @@ abstract class _Users with Store {
   bool get isFirstPage => page == 1;
   bool get isLoadingFirst => isLoading && isFirstPage;
   bool get isLoadingMore => isLoading && page > 1;
-  
+
   User item(int index) => items.elementAt(index);
 
   ItemScrollController itemScrollController = ItemScrollController();
@@ -53,7 +53,7 @@ abstract class _Users with Store {
 
   @action
   Future<void> loadPerPage() async {
-    if(!isLoading) {
+    if (!isLoading) {
       isLoading = true;
 
       final newItems = await Api.users(page);

@@ -12,7 +12,15 @@ part 'user_event.dart';
 part 'user_state.dart';
 
 class UserBloc extends Bloc<UserEvent, UserState> {
-  UserBloc() : super(UserState());
+  UserBloc() : super(UserState()) {
+    on<UserFetched>((event, emit) async {
+      emit(await _mapUserFetchedToState(state));
+    });
+
+    on<UserRefreshed>((event, emit) async {
+      emit(await _mapUserRefreshedToState(state));
+    });
+  }
 
   ItemScrollController itemScrollController = ItemScrollController();
   ItemPositionsListener itemPositionsListener = ItemPositionsListener.create();
@@ -48,7 +56,12 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     add(UserRefreshed());
   }
 
-  @override
+  EventTransformer<UserEvent> throttle<UserEvent>() {
+    return (events, mapper) =>
+        events.throttleTime(Duration(milliseconds: 500)).flatMap(mapper);
+  }
+
+  /* @override
   Stream<Transition<UserEvent, UserState>> transformEvents(
     Stream<UserEvent> events,
     TransitionFunction<UserEvent, UserState> transitionFn,
@@ -57,16 +70,16 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       events.throttleTime(Duration(milliseconds: 500)),
       transitionFn,
     );
-  }
+  } */
 
-  @override
+  /* @override
   Stream<UserState> mapEventToState(UserEvent event) async* {
     if (event is UserFetched) {
       yield await _mapUserFetchedToState(state);
     } else if (event is UserRefreshed) {
       yield await _mapUserRefreshedToState(state);
     }
-  }
+  } */
 
   Future<UserState> _mapUserFetchedToState(UserState state) async {
     if (state.hasReachedMax) {

@@ -63,7 +63,7 @@ class UsersState extends ChangeNotifier {
           // if loading more, add all items to _items
           _items = isFirstPage ? items : [..._items, ...items];
           _page = _page + 1;
-          
+
           _isEmpty = false;
           _hasReachedMax = false;
         }

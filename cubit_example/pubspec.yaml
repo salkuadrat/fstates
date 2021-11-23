@@ -10,10 +10,10 @@ dependencies:
   flutter:
     sdk: flutter
   equatable: ^2.0.3
-  http: ^0.13.3
-  bloc: ^7.0.0
-  flutter_bloc: ^7.1.0
-  scrollable_positioned_list: ^0.2.0-nullsafety.0
+  http: ^0.13.4
+  bloc: ^7.2.1
+  flutter_bloc: ^7.3.3
+  scrollable_positioned_list: ^0.2.3
 
 dev_dependencies:
   flutter_test:
